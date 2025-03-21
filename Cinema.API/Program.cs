@@ -1,6 +1,13 @@
+using Cinema.Application.IServices;
+using Cinema.Application.Services;
+using Cinema.Domain.IRepositories;
+using Cinema.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 
 // Add services to the container.
 
