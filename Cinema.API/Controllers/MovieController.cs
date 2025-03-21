@@ -46,4 +46,22 @@ public class MovieController : ControllerBase
         }
         return Ok(result);
     }
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateMovie(int id, [FromBody] MovieDTO updatedMovie)
+    {
+        if(!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var result = await _movieService.UpdateMovieAsync(id, updatedMovie);
+        if(!result)
+        {
+            return NotFound("Movie not found");
+        }
+        return Ok(result);
+
+        
+
+    }
 }

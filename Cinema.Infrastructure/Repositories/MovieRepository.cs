@@ -1,5 +1,6 @@
 ﻿using Cinema.Domain.Entities;
 using Cinema.Domain.IRepositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,5 +24,23 @@ namespace Cinema.Infrastructure.Repositories
             await _context.SaveChangesAsync();
             return movie;
         }
+
+        public async Task UpdateMovieAsync(Movie movie)
+        {
+            _context.Movies.Update(movie);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Movie> GetByIdAsync(int id)
+        {
+            var movie = await _context.Movies.FirstOrDefaultAsync(m => m.Id == id);
+            if(movie != null)
+            {
+                return movie;
+
+            }
+            return null;
+        }
+
     }
 }

@@ -11,5 +11,6 @@ namespace Cinema.Application.IServices
     public interface IMovieService
     {
         Task<Movie> CreateMovieAsync(MovieDTO movie);
+        Task<bool> UpdateMovieAsync(int id, MovieDTO movie);
     }
 }

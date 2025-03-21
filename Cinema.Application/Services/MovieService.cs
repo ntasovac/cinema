@@ -34,5 +34,24 @@ namespace Cinema.Application.Services
             return movie;
 
         }
+
+        public async Task<bool> UpdateMovieAsync(int id, MovieDTO updatedMovie)
+        {
+            var movie = await _movieRepository.GetByIdAsync(id);
+            if(movie  == null)
+            {
+                return false;
+            }
+            movie.Director = updatedMovie.Director;
+            movie.Duration = updatedMovie.Duration;
+            movie.Description = updatedMovie.Description;
+            movie.Genre = updatedMovie.Genre;
+            movie.Name = updatedMovie.Name;
+            movie.PosterImageUrl = updatedMovie.PosterImageUrl;
+            movie.ReleaseDate = updatedMovie.ReleaseDate;
+
+            await _movieRepository.UpdateMovieAsync(movie);
+            return true;
+        }
     }
 }
