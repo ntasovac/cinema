@@ -42,5 +42,20 @@ namespace Cinema.Infrastructure.Repositories
             return null;
         }
 
+        public async Task<bool> DeleteMovieAsync(int id)
+        {
+            var movie = await GetByIdAsync(id); 
+            if (movie == null) return false; 
+
+            _context.Movies.Remove(movie);
+            await _context.SaveChangesAsync(); 
+
+            return true; 
+        }
+
+        public async Task<List<Movie>> GetAllMoviesAsync()
+        {
+            return await _context.Movies.ToListAsync();
+        }
     }
 }

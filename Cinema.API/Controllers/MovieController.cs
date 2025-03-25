@@ -19,19 +19,6 @@ public class MovieController : ControllerBase
         _movieService = movieService;
     }
 
-    private static List<Movie> Movies = new List<Movie>
-        {
-            new Movie { Id = 1, Name = "The Shawshank Redemption", Genre = "Drama", Duration = 142, Director = "Frank Darabont", ReleaseDate = new DateOnly(1994, 9, 22), Description = "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency." },
-            new Movie { Id = 2, Name = "The Dark Knight", Genre = "Action", Duration = 152, Director = "Christopher Nolan", ReleaseDate = new DateOnly(2008, 7, 18), Description = "When the menace known as The Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham." }
-        };
-
-    // GET: api/movie
-    [HttpGet]
-    public ActionResult<List<Movie>> GetMovies()
-    {
-        return Ok(Movies);
-    }
-
     [HttpPost]
     public async Task<IActionResult> CreateMovie([FromBody] MovieDTO newMovie)
     {
@@ -46,6 +33,7 @@ public class MovieController : ControllerBase
         }
         return Ok(result);
     }
+
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateMovie(int id, [FromBody] MovieDTO updatedMovie)
     {
@@ -60,8 +48,26 @@ public class MovieController : ControllerBase
             return NotFound("Movie not found");
         }
         return Ok(result);
+    }
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteMovie(int id)
+    {
+        var result = await _movieService.DeleteMovieAsync(id);
+        if(!result)
+        {
+            return NotFound("Movie not found");
+        }
+        return Ok(result);
+    }
 
-        
-
+    [HttpGet]
+    public async Task<IActionResult> GetAllMovies()
+    {
+        var result = await _movieService.GetMovies();
+        if(result.Count() == 0)
+        {
+            return NotFound("There is no movies currently");
+        }
+        return Ok(result);
     }
 }

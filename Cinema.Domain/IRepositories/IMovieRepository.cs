@@ -12,5 +12,7 @@ namespace Cinema.Domain.IRepositories
         Task<Movie> AddMovieAsync(Movie movie);
         Task UpdateMovieAsync(Movie movie);
         Task<Movie> GetByIdAsync(int id);
+        Task<bool> DeleteMovieAsync(int id);
+        Task<List<Movie>> GetAllMoviesAsync();
     }
 }

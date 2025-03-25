@@ -12,5 +12,7 @@ namespace Cinema.Application.IServices
     {
         Task<Movie> CreateMovieAsync(MovieDTO movie);
         Task<bool> UpdateMovieAsync(int id, MovieDTO movie);
+        Task<bool> DeleteMovieAsync(int id);
+        Task<List<Movie>> GetMovies();
     }
 }
