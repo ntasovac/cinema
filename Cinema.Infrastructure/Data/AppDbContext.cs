@@ -27,10 +27,12 @@ public class AppDbContext : DbContext
             entity.Property(u => u.Email).IsRequired().HasMaxLength(320); // fact
             entity.Property(u => u.FirstName).IsRequired().HasMaxLength(100);
             entity.Property(u => u.LastName).IsRequired().HasMaxLength(100);
-            entity.Property(u => u.Password).IsRequired().HasMaxLength(255);
-            entity.Property(u => u.BirthDate).IsRequired().HasMaxLength(100);
+            entity.Property(u => u.PasswordHash).IsRequired().HasMaxLength(255);
+            entity.Property(u => u.BirthDate).IsRequired();
             entity.Property(u => u.PhoneNumber).IsRequired().HasMaxLength(15); // fact
             entity.Property(u => u.Type).IsRequired();
+            entity.Property(u => u.RefreshToken);
+            entity.Property(u => u.RefreshTokenExpiryTime);
         });
 
         modelBuilder.Entity<Actor>(entity =>
