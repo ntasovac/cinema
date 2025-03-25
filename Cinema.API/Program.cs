@@ -10,6 +10,9 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -73,6 +76,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseStaticFiles();
 
 app.MapControllers();
 
