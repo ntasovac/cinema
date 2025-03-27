@@ -8,9 +8,8 @@ namespace Cinema.API.Controllers;
 
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class MovieController : ControllerBase
-
 {
     private readonly IMovieService _movieService;
 
@@ -22,6 +21,7 @@ public class MovieController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateMovie([FromBody] MovieDTO newMovie)
     {
+        ///redundantan if statement
         if (newMovie == null)
         {
             return BadRequest("Invalid movie data");

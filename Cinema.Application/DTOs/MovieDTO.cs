@@ -16,13 +16,13 @@ public class MovieDTO
     public string Genre { get; set; }
     public int Duration { get; set; }
     public string Director { get; set; }
-    [JsonConverter(typeof(DateOnlyJsonConverter))]
+    //[JsonConverter(typeof(DateOnlyJsonConverter))]
     public DateOnly ReleaseDate { get; set; }
     public string PosterImageUrl { get; set; }
 
 }
 
-public class DateOnlyJsonConverter : JsonConverter<DateOnly>
+/*public class DateOnlyJsonConverter : JsonConverter<DateOnly>
 {
     private const string Format = "yyyy-MM-dd";
 
@@ -35,4 +35,4 @@ public class DateOnlyJsonConverter : JsonConverter<DateOnly>
     {
         writer.WriteStringValue(value.ToString(Format));
     }
-}
+}*/
