@@ -1,0 +1,40 @@
+src/
+│
+├── app/
+│   ├── core/                           # Core Module
+│   │   ├── services/                   # Singleton services (auth, interceptors, etc.)
+│   │   ├── components/                 # Static components like header, footer, navbar
+│   │   ├── guards/                     # Route guards
+│   │   ├── utils/                      # Utility functions and constants
+│   │   └── core.module.ts              # Core Module declaration
+│   │
+│   ├── shared/                         # Shared Module
+│   │   ├── components/                 # Reusable components (e.g., buttons, search, loaders)
+│   │   ├── pipes/                      # Custom pipes
+│   │   ├── directives/                 # Custom directives
+│   │   └── shared.module.ts            # Shared Module declaration
+│   │
+│   ├── features/                       # Feature Modules
+│   │   ├── movie/                      # Movie Feature Module
+│   │   │   ├── components/             # Movie-specific components (e.g., movie list, details)
+│   │   │   ├── services/               # Services related to movies (e.g., movie API)
+│   │   │   ├── movie.module.ts         # Movie Feature Module declaration
+│   │   │   └── movie-routing.module.ts # Movie routing
+│   │   │
+│   │   ├── booking/                    # Booking Feature Module
+│   │   │   ├── components/             # Booking components (e.g., seat selection, booking form)
+│   │   │   ├── services/               # Booking-related services
+│   │   │   ├── booking.module.ts       # Booking Feature Module declaration
+│   │   │   └── booking-routing.module.ts # Booking routing
+│   │   │
+│   │   └── user/                       # User Feature Module
+│   │       ├── components/             # User profile, authentication
+│   │       ├── services/               # User-related services (e.g., authentication, profile management)
+│   │       ├── user.module.ts          # User Feature Module declaration
+│   │       └── user-routing.module.ts  # User routing
+│   │
+│   ├── app.module.ts                   # App Module (Root Module)
+│   ├── app-routing.module.ts           # App-level routing module
+│   └── app.component.ts                # Root component
+│
+└── assets/                             # Static assets (images, styles, etc.)
