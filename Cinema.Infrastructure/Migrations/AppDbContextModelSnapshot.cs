@@ -21,28 +21,10 @@ namespace Cinema.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ActorMovie", b =>
-                {
-                    b.Property<int>("ActorsId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ActorsId", "MovieId");
-
-                    b.HasIndex("MovieId");
-
-                    b.ToTable("ActorMovie");
-                });
-
             modelBuilder.Entity("Cinema.Domain.Entities.Actor", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -57,6 +39,27 @@ namespace Cinema.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Actors");
+                });
+
+            modelBuilder.Entity("Cinema.Domain.Entities.Hall", b =>
+                {
+                    b.Property<int>("Number")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Number"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<int>("TotalSeats")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Number");
+
+                    b.ToTable("Halls");
                 });
 
             modelBuilder.Entity("Cinema.Domain.Entities.Movie", b =>
@@ -101,6 +104,32 @@ namespace Cinema.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("Cinema.Domain.Entities.Seat", b =>
+                {
+                    b.Property<int>("Number")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Row")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("HallId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("HallNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Number", "Row", "HallId");
+
+                    b.HasIndex("HallId");
+
+                    b.HasIndex("HallNumber");
+
+                    b.ToTable("Seat");
                 });
 
             modelBuilder.Entity("Cinema.Domain.Entities.User", b =>
@@ -153,19 +182,38 @@ namespace Cinema.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ActorMovie", b =>
+            modelBuilder.Entity("Cinema.Domain.Entities.Actor", b =>
                 {
-                    b.HasOne("Cinema.Domain.Entities.Actor", null)
-                        .WithMany()
-                        .HasForeignKey("ActorsId")
+                    b.HasOne("Cinema.Domain.Entities.Movie", null)
+                        .WithMany("Actors")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Cinema.Domain.Entities.Seat", b =>
+                {
+                    b.HasOne("Cinema.Domain.Entities.Hall", null)
+                        .WithMany("ReservedSeats")
+                        .HasForeignKey("HallId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Domain.Entities.Movie", null)
-                        .WithMany()
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Cinema.Domain.Entities.Hall", null)
+                        .WithMany("FreeSeats")
+                        .HasForeignKey("HallNumber");
+                });
+
+            modelBuilder.Entity("Cinema.Domain.Entities.Hall", b =>
+                {
+                    b.Navigation("FreeSeats");
+
+                    b.Navigation("ReservedSeats");
+                });
+
+            modelBuilder.Entity("Cinema.Domain.Entities.Movie", b =>
+                {
+                    b.Navigation("Actors");
                 });
 #pragma warning restore 612, 618
         }

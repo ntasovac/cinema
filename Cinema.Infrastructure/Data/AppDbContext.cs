@@ -14,6 +14,7 @@ public class AppDbContext : DbContext
 
     public DbSet<Actor> Actors { get; set; }
     public DbSet<Movie> Movies { get; set; }
+    public DbSet<Hall> Halls { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -52,7 +53,22 @@ public class AppDbContext : DbContext
             entity.Property(m => m.Genre).IsRequired().HasMaxLength(20);
             entity.Property(m => m.ReleaseDate).IsRequired();
             entity.Property(m => m.PosterImageUrl).IsRequired().HasMaxLength(255);
-            entity.HasMany(m => m.Actors).WithMany();
+            entity.HasMany(m => m.Actors).WithOne().HasForeignKey(a => a.Id).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<Hall>(entity =>
+        {
+            entity.HasKey(h => h.Number);
+            entity.Property(h => h.Name).IsRequired().HasMaxLength(100);
+            entity.Property(h => h.TotalSeats).IsRequired();
+            entity.HasMany(h => h.FreeSeats).WithOne().HasForeignKey(s => s.HallId);
+            entity.HasMany(h => h.ReservedSeats).WithOne().HasForeignKey(s => s.HallId);
+        });
+
+        modelBuilder.Entity<Seat>(entity =>
+        {
+            entity.HasKey(s => new {s.Number, s.Row, s.HallId});
+            entity.Property(s => s.Type).IsRequired();
         });
     }
 
