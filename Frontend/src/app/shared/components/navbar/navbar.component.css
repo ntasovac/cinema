@@ -3,7 +3,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: #23252A;
+    background-color: #141516;
 }
 
  p {
@@ -23,8 +23,7 @@ div {
     justify-content: space-between;
     align-items: center;
     padding: 30px 10%;
-    border-radius: 30px;
-}
+  }
 
 .nav__links {
     list-style: none;
