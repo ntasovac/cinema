@@ -1,40 +1,43 @@
 src/
-│
-├── app/
-│   ├── core/                           # Core Module
-│   │   ├── services/                   # Singleton services (auth, interceptors, etc.)
-│   │   ├── components/                 # Static components like header, footer, navbar
-│   │   ├── guards/                     # Route guards
-│   │   ├── utils/                      # Utility functions and constants
-│   │   └── core.module.ts              # Core Module declaration
+│── app/
+│   │── core/             # Globalni servisi, modeli i konfiguracije
+│   │   ├── services/      # Aplikacioni servisi (e.g., auth.service.ts, api.service.ts)
+│   │   ├── models/        # Globalni interfejsi i modeli (e.g., user.model.ts, movie.model.ts)
+│   │   ├── interceptors/  # HTTP interceptori (e.g., auth.interceptor.ts)
+│   │   ├── guards/        # Route guards (e.g., auth.guard.ts)
+│   │   ├── utils/         # Pomoćne funkcije (e.g., date.util.ts)
 │   │
-│   ├── shared/                         # Shared Module
-│   │   ├── components/                 # Reusable components (e.g., buttons, search, loaders)
-│   │   ├── pipes/                      # Custom pipes
-│   │   ├── directives/                 # Custom directives
-│   │   └── shared.module.ts            # Shared Module declaration
+│   │── shared/            # Ponovno upotrebljivi delovi aplikacije
+│   │   ├── components/    # Reusable komponente (e.g., navbar/, rating-stars/)
+│   │   ├── directives/    # Direktive (e.g., highlight.directive.ts)
+│   │   ├── pipes/         # Filteri i cevi (e.g., duration.pipe.ts)
 │   │
-│   ├── features/                       # Feature Modules
-│   │   ├── movie/                      # Movie Feature Module
-│   │   │   ├── components/             # Movie-specific components (e.g., movie list, details)
-│   │   │   ├── services/               # Services related to movies (e.g., movie API)
-│   │   │   ├── movie.module.ts         # Movie Feature Module declaration
-│   │   │   └── movie-routing.module.ts # Movie routing
+│   │── features/          # Pojedinačni moduli aplikacije
+│   │   ├── movies/        # Modul za filmove
+│   │   │   ├── components/  # Komponente specifične za filmove (e.g., movie-card/, movie-list/)
+│   │   │   ├── services/    # Servisi za filmove (e.g., movie.service.ts)
+│   │   │   ├── models/      # Modeli za filmove (e.g., movie.model.ts)
+│   │   │   ├── store/       # NGRX store (ako koristiš state management)
+│   │   │   ├── pages/       # Stranice (e.g., movie-details.component.ts)
 │   │   │
-│   │   ├── booking/                    # Booking Feature Module
-│   │   │   ├── components/             # Booking components (e.g., seat selection, booking form)
-│   │   │   ├── services/               # Booking-related services
-│   │   │   ├── booking.module.ts       # Booking Feature Module declaration
-│   │   │   └── booking-routing.module.ts # Booking routing
-│   │   │
-│   │   └── user/                       # User Feature Module
-│   │       ├── components/             # User profile, authentication
-│   │       ├── services/               # User-related services (e.g., authentication, profile management)
-│   │       ├── user.module.ts          # User Feature Module declaration
-│   │       └── user-routing.module.ts  # User routing
+│   │   ├── auth/          # Modul za autentifikaciju (e.g., login/, register/)
+│   │   ├── users/         # Modul za korisnike (e.g., profile/, user-list/)
+│   │   ├── tickets/       # Modul za kupovinu karata
 │   │
-│   ├── app.module.ts                   # App Module (Root Module)
-│   ├── app-routing.module.ts           # App-level routing module
-│   └── app.component.ts                # Root component
+│   │── styles/            # Globalni SCSS stilovi
+│   │   ├── utils/         # Pomoćni stilovi (e.g., _variables.scss, _mixins.scss)
+│   │   ├── base/          # Reset, tipografija
+│   │   ├── components/    # Stilovi komponenti (e.g., _buttons.scss)
+│   │   ├── layouts/       # Stilovi za layout (e.g., _header.scss)
+│   │   ├── themes/        # Light/Dark teme
+│   │   ├── main.scss      # Glavni SCSS fajl
+│   │   ├── styles.scss    # Ulazna tačka za stilove
+│   │
+│   │── public/            # Staticki assets (e.g., images, fonts)
+│   │── environments/      # Okruženja (environment.ts, environment.prod.ts)
 │
-└── assets/                             # Static assets (images, styles, etc.)
+│── app.module.ts          # Glavni Angular modul
+│── main.ts                # Ulazna tačka aplikacije
+│── index.html             # Glavni HTML fajl
+│── angular.json           # Angular konfiguracija
+│── package.json           # Dependencies
